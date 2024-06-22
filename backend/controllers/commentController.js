@@ -16,4 +16,25 @@ const addComment = async (req, res) => {
   }
 };
 
-module.exports = { addComment };
+const addReply = async (req, res) => {
+  const { commentId } = req.params;
+  const { text } = req.body;
+  try {
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    comment.replies.push({
+      text: text,
+      user: req.user._id,
+      createdAt: new Date(),
+    });
+    await comment.save();
+    res.status(201).json(comment);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error while Adding Reply" });
+  }
+};
+module.exports = { addComment, addReply };
