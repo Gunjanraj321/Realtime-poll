@@ -18,7 +18,9 @@ const user = new mongoose.Schema({
     profilePicture:{
         type: String,
         default:'',
-    }
+    },
+    createdPolls: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Poll' }],
+    votedPolls: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Poll' }],
 })
 
 module.exports = mongoose.model('User', user);
