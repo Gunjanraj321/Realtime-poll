@@ -5,6 +5,7 @@ const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const userRoutes = require('./router/userRoute');
 const pollRoutes = require('./router/pollRouter');
+const commentRoutes = require('./router/commentRoute');
 const socketHandler = require('./router/socketHandler');
 
 const app = express();
@@ -14,8 +15,9 @@ const io = socketIo(server);
 app.use(express.json());
 
 // Use routes
-app.use('/users', userRoutes);
-app.use('/polls', pollRoutes);
+app.use(userRoutes);
+app.use(pollRoutes);
+app.use(commentRoutes);
 
 // MongoDB connection
 mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true })
