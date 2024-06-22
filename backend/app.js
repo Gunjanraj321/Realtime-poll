@@ -1,21 +1,32 @@
 require('dotenv').config();
 const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const mongoose = require('mongoose');
 const userRoutes = require('./router/userRoute');
 const pollRoutes = require('./router/pollRouter');
+const socketHandler = require('./router/socketHandler');
+
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 
 app.use(express.json());
 
-app.use(userRoutes);
-app.use(pollRoutes);
+// Use routes
+app.use('/users', userRoutes);
+app.use('/polls', pollRoutes);
 
-const mongoose = require('mongoose');
+// MongoDB connection
 mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Error connecting to MongoDB', err));
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Error connecting to MongoDB', err));
 
-const port = 3001;
+// Initialize socket handler
+socketHandler(io);
 
-app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`)
-})
+// Start server
+const port = process.env.PORT || 3001;
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
