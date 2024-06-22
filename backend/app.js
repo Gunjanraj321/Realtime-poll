@@ -1,6 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const userRoutes = require('./router/userRoute');
 const app = express();
+
+app.use(express.json());
+
+app.use(userRoutes);
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true })
