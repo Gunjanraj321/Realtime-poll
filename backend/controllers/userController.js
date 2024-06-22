@@ -24,7 +24,8 @@ const userSignup = async (req, res) => {
     return res.status(201).json({
       id: user._id,
       username: user.username,
-      email: user.email
+      email: user.email,
+      token: generateAccessToken(user._id.toString()),
     });
   } catch (err) {
     return res.status(500).json({

@@ -37,4 +37,18 @@ const addReply = async (req, res) => {
     res.status(500).json({ message: "Server Error while Adding Reply" });
   }
 };
-module.exports = { addComment, addReply };
+
+const getCommentOfPoll = async (req, res) => {
+  const { pollId } = req.params;
+  try {
+    const comments = await Comment.find({ poll: pollId })
+      .populate("user", ["username"])
+      .populate("replies.user", ["username"]);
+    res.status(200).json(comments);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error while fetching comments" });
+  }
+};
+
+module.exports = { addComment, addReply, getCommentOfPoll };
