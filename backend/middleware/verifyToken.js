@@ -6,10 +6,11 @@ require('dotenv').config();
 const verify = async (req, res, next) => {
     try {
         const token = req.header('Authorization');
+        console.log(token)
         const userData = jwt.verify(token, process.env.JWTSECRETKEY);
         const user = await User.findById(userData.userId);
+        console.log(user.id, 'from token')
         if (user) {
-            console.log('from token',user);
             req.user = user;
             next();
         }

@@ -3,6 +3,8 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 const userRoutes = require('./router/userRoute');
 const pollRoutes = require('./router/pollRouter');
 const commentRoutes = require('./router/commentRoute');
@@ -13,7 +15,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 app.use(express.json());
-
+app.use(cors());
 // Use routes
 app.use(userRoutes);
 app.use(pollRoutes);

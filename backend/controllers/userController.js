@@ -25,7 +25,7 @@ const userSignup = async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
-      token: generateAccessToken(user._id.toString()),
+      token: generateAccessToken(user.id),
     });
   } catch (err) {
     return res.status(500).json({
@@ -43,7 +43,7 @@ const userLogin = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log(user)
+    // console.log(user)
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });
@@ -53,7 +53,8 @@ const userLogin = async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
-      token: generateAccessToken(user._id.toString()),
+      token: generateAccessToken(user.id),
+
     });
   } catch (err) {
     return res.status(500).json({
