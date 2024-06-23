@@ -21,6 +21,20 @@ This project is a real-time poll application built with Node.js, Express, MongoD
 - React.js: JavaScript library for building user interfaces, facilitating the creation of interactive UI components.
 - Ant Design: Comprehensive UI library with a set of high-quality React components and design principles.
 
+### REST API Endpoints
+The backend uses RESTful APIs for communication between the client and server. Below are the main endpoints:
+
+- **POST /signup :** Registers a new user.
+- **POST /login :** Authenticates a user and returns a JWT.
+- **POST /profile/:userId :** Get A User Profile Based userId.
+- **POST /poll/createpoll :** Create a poll.
+- **GET /poll/:pollId/pollresults :** fetch poll result based on pollId.
+- **GET /poll :** fetch all poll.
+- **POST /poll/vote/:pollId/:optionId :** voting purpose.
+- **POST /poll/:pollId/comments :** To add comment.
+- **POST /poll/:pollId/addreply** send reply to proper comment.
+- **GET /poll/:polId/comments** fetch comment based on pollid.
+
 ## Installation and Setup
 
 ### Prerequisites
