@@ -1,4 +1,3 @@
-// components/CreatePoll.js
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Input, Button, Space } from "antd";
@@ -31,7 +30,6 @@ const CreatePoll = () => {
           }
         }
       );
-      // console.log(response.data);
       setQuestion("");
       setOptions([{ text: "" }, { text: "" }]);
     } catch (err) {

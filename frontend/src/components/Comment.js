@@ -1,4 +1,3 @@
-// components/Comments.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { List, Avatar, Form, Button, Input, message } from "antd";
@@ -61,8 +60,8 @@ const Comments = ({ pollId }) => {
         renderItem={comment => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar>{comment.user.username.charAt(0).toUpperCase()}</Avatar>}
-              title={<UserProfileModal userId={comment.user._id} username={comment.user.username}/>}
+              avatar={<Avatar>{comment.user.username}</Avatar>}
+              title={<UserProfileModal username={comment.user.username}/>}
               description={comment.text}
             />
           </List.Item>

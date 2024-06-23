@@ -8,7 +8,6 @@ const cors = require('cors');
 const userRoutes = require('./router/userRoute');
 const pollRoutes = require('./router/pollRouter');
 const commentRoutes = require('./router/commentRoute');
-// const socketHandler = require('./router/socketHandler');
 
 const app = express();
 const server = http.createServer(app);
@@ -21,6 +20,7 @@ io.on('connection', (socket) => {
 
 app.use(express.json());
 app.use(cors());
+
 // Use routes
 app.use(userRoutes);
 app.use(pollRoutes(io));

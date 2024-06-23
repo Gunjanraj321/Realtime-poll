@@ -53,7 +53,6 @@ const getPollResults = async (req, res) => {
         0
       ),
     };
-    // console.log(pollResult)
     return res.status(200).json(pollResult);
   } catch (err) {
     return res.status(400).json({ message: err.message });
@@ -71,9 +70,7 @@ const fetchPolls = async (req, res) => {
 
 const votePoll = (io) => async (req, res) => {
   const { pollId, optionId } = req.params;
-//   console.log(pollId, '----',optionId)
   const userId = req.user.id;
-//   console.log('from controller',userId)
   try {
     const poll = await Poll.findById(pollId);
 
@@ -86,7 +83,6 @@ const votePoll = (io) => async (req, res) => {
         .json({ message: "You have already voted on this poll" });
     }
     const option = poll.options.find((opt) => opt.id === optionId);
-    console.log("Option ID:", optionId); // Add this for debugging
 
     if (!option) {
       return res.status(404).json({ message: "Option not found" });
@@ -96,7 +92,7 @@ const votePoll = (io) => async (req, res) => {
     await User.findByIdAndUpdate(userId, { $push: { votedPolls: poll._id } });
     await poll.save();
 
-    io.emit("vote", poll); // Emitting the vote event to all clients
+    io.emit("vote", poll); 
 
     res.status(200).json({ message: "Vote cast successfully", poll });
   } catch (error) {

@@ -47,7 +47,7 @@ const FetchPolls = () => {
     }
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:3001/poll/vote/${pollId}/${optionId}`,
         {},
         {
@@ -56,10 +56,9 @@ const FetchPolls = () => {
           }
         }
       );
-      console.log("Vote successful:", response.data);
       fetchPolls(); 
     } catch (error) {
-      console.error("Error voting:", error);
+      alert(error.response.data.message);
     }
   };
 

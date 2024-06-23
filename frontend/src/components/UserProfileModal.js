@@ -1,10 +1,11 @@
-// components/UserProfileModal.js
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import UserProfile from "./UserProfile";
+import { useSelector } from "react-redux";
 
-const UserProfileModal = ({ userId , username}) => {
+const UserProfileModal = ({ username}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const userId = useSelector(state => state.auth.isUserId);
 
   const showModal = () => {
     setIsModalVisible(true);

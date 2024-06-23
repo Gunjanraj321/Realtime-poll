@@ -21,7 +21,6 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
-    // event.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:3001/login",
@@ -33,14 +32,13 @@ const Login = () => {
       dispatch(setEmail(email));
       dispatch(setUserId(id));
 
-      navigate("/header");
+      navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 401) {
         alert("Invalid email or password.");
       } else {
         alert("An error occurred. Please try again later.");
       }
-      console.error(error);
     }
   };
 
