@@ -36,7 +36,7 @@ const Signup = () => {
       dispatch(setUserId(userId));
 
       alert(response.data.message || "Signup successful!");
-      navigate("/");
+      navigate("/header");
     } catch (error) {
       alert("An error occurred. Please try again later.");
       console.error(

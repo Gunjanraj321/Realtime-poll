@@ -30,7 +30,7 @@ const Login = () => {
       dispatch(setEmail(email));
       dispatch(setUserId(id));
 
-      navigate("/body");
+      navigate("/header");
     } catch (error) {
       if (error.response && error.response.status === 401) {
         alert("Invalid email or password."); 
