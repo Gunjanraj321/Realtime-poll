@@ -1,5 +1,7 @@
 import React from 'react';
 import CreatePoll from './CreatePoll';
+import FetchPolls from './FetchPolls';
+import PollResults from './PollResults';
 
 const Body = () => {
 
@@ -7,6 +9,8 @@ const Body = () => {
         <div>
             <h1>Polling App</h1>
             <CreatePoll />
+            <FetchPolls />
+            <PollResults />
         </div>
     );
 };

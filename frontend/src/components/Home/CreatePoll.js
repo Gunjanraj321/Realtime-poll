@@ -4,7 +4,7 @@ import { Modal, Button, Form, Input, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
-const CreatePoll = ({ onCreate }) => {
+const CreatePoll = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([{ text: "" }, { text: "" }]);
@@ -41,7 +41,7 @@ const CreatePoll = ({ onCreate }) => {
           }
         }
       );
-      onCreate(response.data);
+      console.log(response.data);
       handleCancel();
     } catch (err) {
       console.error(err);

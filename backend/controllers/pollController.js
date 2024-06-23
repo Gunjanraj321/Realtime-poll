@@ -1,19 +1,18 @@
 const Poll = require("../models/pollModel");
 const User = require("../models/userModel");
-const { v4: uuidv4 } = require("uuid");
 
 const createPoll = async (req, res) => {
   const { question, options } = req.body;
   const userId = req.user.id;
 
-  // Ensure there are options provided and at least two options
+  // Ensuring there are options provided and at least two options
   if (!options || options.length < 2) {
     return res
       .status(400)
       .json({ message: "Poll must have at least two options" });
   }
 
-  // Add unique IDs to each option
+  // Adding unique IDs to each option
   const optionsWithId = options.map((option, index) => ({
     id: (index + 1).toString(),
     text: option.text,
@@ -27,9 +26,7 @@ const createPoll = async (req, res) => {
       options: optionsWithId,
       createdBy: userId,
     });
-    // console.log(`---------`)
     await User.findByIdAndUpdate(userId, { $push: { createdPolls: poll._id } });
-    // console.log(`======`)
     return res.status(201).json(poll);
   } catch (err) {
     return res.status(400).json({ message: err.message });
@@ -70,4 +67,41 @@ const fetchPolls = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-module.exports = { createPoll, getPollResults, fetchPolls };
+
+const votePoll = (io) => async (req, res) => {
+  const { pollId, optionId } = req.params;
+//   console.log(pollId, '----',optionId)
+  const userId = req.user.id;
+//   console.log('from controller',userId)
+  try {
+    const poll = await Poll.findById(pollId);
+
+    if (!poll) {
+      return res.status(404).json({ message: "Poll not found" });
+    }
+    if (req.user.votedPolls.includes(pollId)) {
+      return res
+        .status(400)
+        .json({ message: "You have already voted on this poll" });
+    }
+    const option = poll.options.find((opt) => opt.id === optionId);
+    console.log("Option ID:", optionId); // Add this for debugging
+
+    if (!option) {
+      return res.status(404).json({ message: "Option not found" });
+    }
+    option.votes.push(userId);
+    option.voteCount += 1;
+    await User.findByIdAndUpdate(userId, { $push: { votedPolls: poll._id } });
+    await poll.save();
+
+    io.emit("vote", poll); // Emitting the vote event to all clients
+
+    res.status(200).json({ message: "Vote cast successfully", poll });
+  } catch (error) {
+    console.error(err);
+    res.status(500).json('Internal server error');
+  }
+};
+
+module.exports = { createPoll, getPollResults, fetchPolls ,votePoll};
