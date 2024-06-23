@@ -1,14 +1,16 @@
+// components/Comments.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { List, Avatar, Form, Button, Input, message } from "antd";
 import { useSelector } from "react-redux";
+import UserProfileModal from "./UserProfileModal";
 
 const { TextArea } = Input;
 
 const Comments = ({ pollId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const token = useSelector(state => state.auth.isToken);
+  const token = useSelector((state) => state.auth.isToken);
 
   useEffect(() => {
     fetchComments();
@@ -45,6 +47,7 @@ const Comments = ({ pollId }) => {
       );
       setComments([...comments, response.data]);
       setNewComment("");
+      fetchComments(); 
     } catch (error) {
       console.error("Error adding comment:", error);
     }
@@ -58,8 +61,8 @@ const Comments = ({ pollId }) => {
         renderItem={comment => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar>{comment.user.username[0]}</Avatar>}
-              title={comment.user.username}
+              avatar={<Avatar>{comment.user.username.charAt(0).toUpperCase()}</Avatar>}
+              title={<UserProfileModal userId={comment.user._id} username={comment.user.username}/>}
               description={comment.text}
             />
           </List.Item>

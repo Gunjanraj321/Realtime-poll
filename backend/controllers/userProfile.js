@@ -1,7 +1,8 @@
 const User = require("../models/userModel");
 
 const getUserProfile = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.params.userId;
+console.log(userId)
   try {
     const user = await User.findById(userId).select(
       "username email profilePicture"

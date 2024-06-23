@@ -8,7 +8,6 @@ function generateAccessToken(id) {
 }
 
 const userSignup = async (req, res) => {
-    console.log(req.body);
   const { email, password, username } = req.body;
   try {
     const existingUser = await User.findOne({ email });
@@ -36,14 +35,12 @@ const userSignup = async (req, res) => {
 };
 
 const userLogin = async (req, res) => {
-    console.log(req.body)
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    // console.log(user)
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid password" });

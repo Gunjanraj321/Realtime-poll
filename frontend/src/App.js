@@ -2,7 +2,7 @@ import React from 'react';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import { Routes, Route } from 'react-router-dom';
-import Header from './components/Home/Header';
+import Header from './components/Header';
 import PollResults from './components/Home/PollResults';
 import CreatePoll from './components/Home/CreatePoll';
 import PublicRoute from './components/routes/PublicRoutes';
@@ -11,6 +11,7 @@ import HomePage from './components/Home/HomePage';
 import FetchPolls from './components/Home/FetchPolls';
 
 function App() {
+  
   return (
     <div>
       <Header /> 

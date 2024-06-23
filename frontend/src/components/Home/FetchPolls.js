@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { List, Card, Button, Radio, message, Modal, Input } from "antd";
+import { List, Card, Button, Radio, message, Modal } from "antd";
 import io from "socket.io-client";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Comments from "./Comment"; 
+import Comments from "../Comment"; 
 
 const socket = io("http://localhost:3001");
 

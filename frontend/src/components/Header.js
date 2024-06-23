@@ -2,14 +2,16 @@ import React from "react";
 import { Layout, Row, Col, Button } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
-import UserProfile from "../UserProfile";
+import UserProfile from "./UserProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAuthState } from "../Redux/AuthSlice";
+import { clearAuthState } from "./Redux/AuthSlice";
 
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
     const token = useSelector((state) => state.auth.isToken);
+    const userId = useSelector((state)=>state.auth.isUserId)
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,7 +30,7 @@ const Header = () => {
                     {token ? (
                         <Row gutter={16} align="middle">
                             <Col>
-                                <UserProfile />
+                                <UserProfile userId={userId} displayMode="header"/>
                             </Col>
                             <Col>
                                 <Button type="primary">

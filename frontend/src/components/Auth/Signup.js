@@ -3,6 +3,9 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthenticated, setEmail, setToken, setUserId } from "../Redux/AuthSlice";
+import { Form, Input, Button, Card, Typography } from "antd";
+
+const { Title } = Typography;
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -18,8 +21,7 @@ const Signup = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
     try {
       const response = await axios.post(
         "http://localhost:3001/signup",
@@ -47,55 +49,55 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="m-auto">
-        <div className="p-8 shadow-lg rounded-xl text-center bg-white">
-          <h1 className="text-3xl font-bold text-cyan-500 pb-3">
-            Create an account
-          </h1>
-          <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-            <div className="flex flex-col space-y-4">
-              <input
-                type="text"
-                name="username"
-                className="p-2 rounded-lg bg-gray-100 shadow-md focus:outline-none focus:border-2 border-cyan-500"
-                placeholder="Emelia Erickson"
-                required
-                value={formData.username}
-                onChange={handleChange}
-              />
-              <input
-                type="email"
-                name="email"
-                className="p-2 rounded-lg bg-gray-100 shadow-md focus:outline-none focus:border-2 border-cyan-500"
-                placeholder="emelia_erickson24@gmail.com"
-                required
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="••••••••"
-                className="p-2 rounded-lg bg-gray-100 shadow-md focus:outline-none focus:border-2 border-cyan-500"
-                required
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </div>
-            <Link to="/Login" className="text-sm text-cyan-600 underline mt-4 block">
-              Already Have Account : Login
-            </Link>
-            <button
-              type="submit"
-              className="bg-cyan-200 p-2 text-gray-800 font-semibold rounded-xl border-cyan-700 focus:ring-2 mt-4"
-            >
+    <div className="signup-container" style={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Card style={{ width: 300 }}>
+        <Title level={2} style={{ textAlign: "center" }}>Create an account</Title>
+        <Form onFinish={handleSubmit}>
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "Please input your username!" }]}
+          >
+            <Input
+              placeholder="Username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            rules={[{ required: true, message: "Please input your email!" }]}
+          >
+            <Input
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password
+              placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block>
               Create an account
-            </button>
-          </form>
-        </div>
-      </div>
+            </Button>
+          </Form.Item>
+          <Link to="/Login" style={{ display: "block", textAlign: "center", marginTop: "10px" }}>
+            Already Have Account? Login
+          </Link>
+        </Form>
+      </Card>
     </div>
   );
 };
+
 export default Signup;
