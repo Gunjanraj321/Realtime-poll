@@ -5,8 +5,8 @@ const {addComment, addReply, getCommentOfPoll} = require('../controllers/comment
 
 const {verify} = require('../middleware/verifyToken');
 
-router.post('/addcomment/:pollId', verify, addComment);
-router.post('/addreply/:commentId', verify, addReply);
-router.get('/comments/:pollId',verify, getCommentOfPoll);
+router.post('/poll/:pollId/comments', verify, addComment);
+router.post('/poll/:pollId/addreply', verify, addReply);
+router.get('/poll/:pollId/comments',verify, getCommentOfPoll);
 
 module.exports = router;
