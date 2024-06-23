@@ -35,8 +35,10 @@ const createPoll = async (req, res) => {
 
 const getPollResults = async (req, res) => {
   const { pollId } = req.params;
+//   console.log(pollId);
   try {
     const poll = await Poll.findById(pollId);
+    // console.log(poll)
     if (!poll) {
       return res.status(404).json({ message: "Poll not found" });
     }
@@ -53,6 +55,7 @@ const getPollResults = async (req, res) => {
         0
       ),
     };
+    // console.log(pollResult)
     return res.status(200).json(pollResult);
   } catch (err) {
     return res.status(400).json({ message: err.message });
