@@ -5,7 +5,7 @@ const { createPoll, getPollResults, fetchPolls, votePoll } = require('../control
 
 module.exports = (io) => {
     router.post('/poll/createPoll', verify, createPoll);
-    router.post('/poll/:pollId/pollResult', getPollResults);
+    router.get('/poll/:pollId/pollResult', getPollResults);
     router.get('/poll', fetchPolls);
     router.post('/poll/vote/:pollId/:optionId', verify, votePoll(io));
 

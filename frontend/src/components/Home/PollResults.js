@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; // Assuming you use React Router for routing
+import { useParams } from "react-router-dom"; 
 import { Card, Typography, List } from "antd";
 
 const { Title } = Typography;
 
 const PollResults = () => {
-  const { pollId } = useParams(); // Get pollId from URL params
+  const { pollId } = useParams(); 
   console.log(pollId)
   const [pollResult, setPollResult] = useState(null);
 

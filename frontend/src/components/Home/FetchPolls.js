@@ -10,7 +10,7 @@ const socket = io("http://localhost:3001");
 const FetchPolls = () => {
   const [polls, setPolls] = useState([]);
   const [selectedOption, setSelectedOption] = useState({});
-  const token = useSelector(state => state.auth.isToken); // Assuming the token is stored in state.auth.token
+  const token = useSelector(state => state.auth.isToken); 
 
   useEffect(() => {
     fetchPolls();
